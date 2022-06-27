@@ -19,17 +19,17 @@ function handleFiles(files) {
     processData(csv);
   }
 
-  function processData(csv) {
-      var allTextLines = csv.split(/\r\n|\n/);
-      var lines = [];
-      for (var i=0; i<allTextLines.length; i++) {
-          var data = allTextLines[i].split(',');
-              var tarr = [];
-              for (var j=0; j<data.length; j++) {
-                  tarr.push(data[j].replace(/"/g, ''));
-              }
-              lines.push(tarr);
+  function processData(logfile) {
+    var allTextLines = logfile.split(/\r\n|\n/);
+    var lines = [];
+    for (var i=0; i<allTextLines.length; i++) {
+      var data = allTextLines[i].split(',');
+      var tarr = [];
+      for (var j=0; j<data.length; j++) {
+          tarr.push(data[j].replace(/"/g, ''));
       }
+      lines.push(tarr);
+    }
     console.log(lines);
     drawOutput(lines);
   }
@@ -40,15 +40,15 @@ function handleFiles(files) {
     }
   }
 
-  function drawOutput(lines){
-	document.getElementById("output").innerHTML = "";
-	var table = document.createElement("table");
-	for (var i = 0; i < lines.length; i++) {
-		var row = table.insertRow(-1);
-		for (var j = 0; j < lines[i].length; j++) {
-			var cell = row.insertCell(-1);
-			cell.appendChild(document.createTextNode(lines[i][j]));
-		}
-	}
-	document.getElementById("output").appendChild(table);
+function drawOutput(lines){
+  document.getElementById("output").innerHTML = "";
+  var table = document.createElement("table");
+  for (var i = 0; i < lines.length; i++) {
+    var row = table.insertRow(-1);
+    for (var j = 0; j < lines[i].length; j++) {
+      var cell = row.insertCell(-1);
+      cell.appendChild(document.createTextNode(lines[i][j]));
+    }
+  }
+  document.getElementById("output").appendChild(table);
 }
